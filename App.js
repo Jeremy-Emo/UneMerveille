@@ -1,6 +1,7 @@
 import React from 'react';
-import { AsyncStorage, StyleSheet, Text, View, ScrollView } from 'react-native';
+import { AsyncStorage, StyleSheet, Text, View, ScrollView, Image } from 'react-native';
 import Arme from "./components/Arme";
+import {styles} from "./styles/styles";
 
 export default class App extends React.Component {
 
@@ -13,20 +14,27 @@ export default class App extends React.Component {
           nom : "Pierre",
           bat : [3],
           lvl : 1,
-          img : "",
+          img : require("./images/pierre.png"),
         },
         {
           id : 2,
           nom : "Papier",
           bat : [1],
           lvl : 1,
-          img : "",
+          img : require("./images/papier.png"),
         },
         {
           id : 3,
           nom : "Ciseaux",
           bat : [2],
           lvl : 1,
+          img : require("./images/ciseaux.png"),
+        },
+        {
+          id : 4,
+          nom : "Puit",
+          bat : [1,2,3],
+          lvl : 2,
           img : "",
         },
       ],
@@ -35,8 +43,6 @@ export default class App extends React.Component {
         money : 0,
       },
     };
-
-    this.checkVictory(this.getRandom());
 
   }
 
@@ -62,13 +68,15 @@ export default class App extends React.Component {
         <Text>Open up App.js to start working on your app!</Text>
         <Text>Changes you make will automatically reload.</Text>
         <Text>Shake your phone to open the developer menu.</Text>
-        <ScrollView horizontal={true}>
+        <ScrollView horizontal={true} style={styles.mesArmes}>
           {
            this.state.weapons.map(
                (arme) => {
-                 return (
-                     <Arme weapon={arme} key={arme.id}/>
-                 )
+                 if(arme.lvl <= this.state.playerInfos.lvl){
+                   return (
+                       <Arme weapon={arme} key={arme.id} onPressWeapon={this.checkVictory} />
+                   )
+                 }
                }
            )
           }
@@ -77,12 +85,3 @@ export default class App extends React.Component {
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
