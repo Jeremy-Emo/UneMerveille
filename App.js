@@ -32,6 +32,8 @@ export default class App extends React.Component {
       },
     };
 
+    this.checkVictory(this.getRandom());
+
   }
 
   getRandom = () => {
@@ -39,8 +41,15 @@ export default class App extends React.Component {
     return this.state.weapons[random];
   }
 
-  checkVictory = () => {
-
+  checkVictory = (playerWeapon) => {
+    let ennemyWeapon = this.getRandom();
+    if( playerWeapon.bat.indexOf(ennemyWeapon.id) != -1 ){
+      console.log('gagné ! Vous : ' + playerWeapon.nom + ' ; Lui : ' + ennemyWeapon.nom);
+    } else if(ennemyWeapon.bat.indexOf(playerWeapon.id) != -1){
+      console.log('perdu ! Vous : ' + playerWeapon.nom + ' ; Lui : ' + ennemyWeapon.nom);
+    } else {
+      console.log('egalité...  Vous : ' + playerWeapon.nom + ' ; Lui : ' + ennemyWeapon.nom);
+    }
   }
 
   render() {
