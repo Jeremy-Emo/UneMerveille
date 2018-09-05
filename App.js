@@ -1,7 +1,38 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { AsyncStorage, StyleSheet, Text, View } from 'react-native';
 
 export default class App extends React.Component {
+
+  constructor(){
+    super();
+    this.state = {
+      weapons : [
+        {
+          id : 1,
+          nom : "Pierre",
+          bat : [3],
+          lvl : 1,
+        },
+        {
+          id : 2,
+          nom : "Papier",
+          bat : [1],
+          lvl : 1,
+        },
+        {
+          id : 3,
+          nom : "Ciseaux",
+          bat : [2],
+          lvl : 1,
+        },
+      ],
+      playerInfos : {
+        lvl : 1,
+        money : 0,
+      },
+    };
+  }
+
   render() {
     return (
       <View style={styles.container}>
