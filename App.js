@@ -31,6 +31,16 @@ export default class App extends React.Component {
         money : 0,
       },
     };
+
+  }
+
+  getRandom = () => {
+    let random = Math.floor(Math.random() * (this.state.weapons.length - 1) );
+    return this.state.weapons[random];
+  }
+
+  checkVictory = () => {
+
   }
 
   render() {
