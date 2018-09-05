@@ -44,8 +44,6 @@ export default class App extends React.Component {
       },
     };
 
-    this.checkVictory(this.getRandom());
-
   }
 
   getRandom = () => {
@@ -76,7 +74,7 @@ export default class App extends React.Component {
                (arme) => {
                  if(arme.lvl <= this.state.playerInfos.lvl){
                    return (
-                       <Arme weapon={arme} key={arme.id}/>
+                       <Arme weapon={arme} key={arme.id} onPressWeapon={this.checkVictory} />
                    )
                  }
                }
