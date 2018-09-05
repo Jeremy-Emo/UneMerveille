@@ -21,6 +21,8 @@ export const styles = StyleSheet.create({
     },
     mesArmes: {
       flex: 1,
+      position: "absolute",
+      bottom : 10,
     },
     weaponText: {
       position: "absolute",
