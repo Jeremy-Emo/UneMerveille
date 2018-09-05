@@ -73,6 +73,7 @@ export default class App extends React.Component {
         } else {
           console.log('egalité...  Vous : ' + playerWeapon.nom + ' ; Lui : ' + enemyWeapon.nom);
         }
+        this.setState({modalBatailleVisible: false});
       }
     );
   }
