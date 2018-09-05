@@ -29,6 +29,13 @@ export default class App extends React.Component {
           lvl : 1,
           img : "",
         },
+        {
+          id : 4,
+          nom : "Puit",
+          bat : [1,2,3],
+          lvl : 2,
+          img : "",
+        },
       ],
       playerInfos : {
         lvl : 1,
@@ -66,9 +73,11 @@ export default class App extends React.Component {
           {
            this.state.weapons.map(
                (arme) => {
-                 return (
-                     <Arme weapon={arme} key={arme.id}/>
-                 )
+                 if(arme.lvl <= this.state.playerInfos.lvl){
+                   return (
+                       <Arme weapon={arme} key={arme.id}/>
+                   )
+                 }
                }
            )
           }
