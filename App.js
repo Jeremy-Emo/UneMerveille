@@ -1,5 +1,5 @@
 import React from 'react';
-import { AsyncStorage, StyleSheet, Text, View, ScrollView, Image } from 'react-native';
+import { AsyncStorage, StyleSheet, Text, View, ScrollView, Button, Animated, Modal, Image } from 'react-native';
 import Arme from "./components/Arme";
 import {styles} from "./styles/styles";
 
@@ -42,6 +42,10 @@ export default class App extends React.Component {
         lvl : 1,
         money : 0,
       },
+      modalBatailleVisible: false,
+      rotateValue: new Animated.Value(0),
+      playerWeapon: {},
+      enemyWeapon: {}
     };
 
   }
@@ -52,17 +56,29 @@ export default class App extends React.Component {
   }
 
   checkVictory = (playerWeapon) => {
-    let ennemyWeapon = this.getRandom();
-    if( playerWeapon.bat.indexOf(ennemyWeapon.id) != -1 ){
-      console.log('gagné ! Vous : ' + playerWeapon.nom + ' ; Lui : ' + ennemyWeapon.nom);
-    } else if(ennemyWeapon.bat.indexOf(playerWeapon.id) != -1){
-      console.log('perdu ! Vous : ' + playerWeapon.nom + ' ; Lui : ' + ennemyWeapon.nom);
-    } else {
-      console.log('egalité...  Vous : ' + playerWeapon.nom + ' ; Lui : ' + ennemyWeapon.nom);
-    }
+    let enemyWeapon = this.getRandom();
+
+    this.setState({
+      modalBatailleVisible: true,
+      playerWeapon: playerWeapon,
+      enemyWeapon: enemyWeapon,
+    });
+    this.state.rotateValue.setValue(0);
+    Animated.timing(this.state.rotateValue, {toValue: 1, duration: 500}).start(
+      () => {
+        if( playerWeapon.bat.indexOf(enemyWeapon.id) != -1 ){
+          console.log('gagné ! Vous : ' + playerWeapon.nom + ' ; Lui : ' + enemyWeapon.nom);
+        } else if(enemyWeapon.bat.indexOf(playerWeapon.id) != -1){
+          console.log('perdu ! Vous : ' + playerWeapon.nom + ' ; Lui : ' + enemyWeapon.nom);
+        } else {
+          console.log('egalité...  Vous : ' + playerWeapon.nom + ' ; Lui : ' + enemyWeapon.nom);
+        }
+      }
+    );
   }
 
   render() {
+    const { rotateValue} = this.state;
     return (
       <View style={styles.container}>
         <Text>Open up App.js to start working on your app!</Text>
@@ -81,6 +97,34 @@ export default class App extends React.Component {
            )
           }
         </ScrollView>
+        <Modal visible={this.state.modalBatailleVisible} transparent={false} onRequestClose={() => {}}>
+          <View style={styles.batailleModal}>
+            <Animated.View style={[{bottom: this.state.rotateValue.interpolate({inputRange: [0, 1],outputRange: ['100%', '55%']})}, styles.slide]}>
+            <View style={styles.modalArmeBox}>
+            <Image
+              style={{maxWidth:"100%"}}
+              source={this.state.enemyWeapon.img}
+              resizeMode="contain"
+            />
+          <Text style={styles.weaponText}>
+            {this.state.enemyWeapon.nom}
+          </Text>
+          </View>
+            </Animated.View>
+            <Animated.View style={[{top: this.state.rotateValue.interpolate({inputRange: [0, 1],outputRange: ['100%', '55%']})}, styles.slide]}>
+            <View style={styles.modalArmeBox}>
+            <Image
+              style={{maxWidth:"100%"}}
+              source={this.state.playerWeapon.img}
+              resizeMode="contain"
+            />
+          <Text style={styles.weaponText}>
+            {this.state.playerWeapon.nom}
+          </Text>
+          </View>
+            </Animated.View>
+          </View>
+        </Modal>
       </View>
     );
   }
