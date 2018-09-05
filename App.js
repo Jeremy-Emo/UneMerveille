@@ -81,9 +81,6 @@ export default class App extends React.Component {
     const { rotateValue} = this.state;
     return (
       <View style={styles.container}>
-        <Text>Open up App.js to start working on your app!</Text>
-        <Text>Changes you make will automatically reload.</Text>
-        <Text>Shake your phone to open the developer menu.</Text>
         <ScrollView horizontal={true} style={styles.mesArmes}>
           {
            this.state.weapons.map(
