@@ -1,5 +1,6 @@
 import React from 'react';
-import { AsyncStorage, StyleSheet, Text, View } from 'react-native';
+import { AsyncStorage, StyleSheet, Text, View, ScrollView } from 'react-native';
+import Arme from "./components/Arme";
 
 export default class App extends React.Component {
 
@@ -12,18 +13,21 @@ export default class App extends React.Component {
           nom : "Pierre",
           bat : [3],
           lvl : 1,
+          img : "",
         },
         {
           id : 2,
           nom : "Papier",
           bat : [1],
           lvl : 1,
+          img : "",
         },
         {
           id : 3,
           nom : "Ciseaux",
           bat : [2],
           lvl : 1,
+          img : "",
         },
       ],
       playerInfos : {
@@ -58,6 +62,17 @@ export default class App extends React.Component {
         <Text>Open up App.js to start working on your app!</Text>
         <Text>Changes you make will automatically reload.</Text>
         <Text>Shake your phone to open the developer menu.</Text>
+        <ScrollView horizontal={true}>
+          {
+           this.state.weapons.map(
+               (arme) => {
+                 return (
+                     <Arme weapon={arme} key={arme.id}/>
+                 )
+               }
+           )
+          }
+        </ScrollView>
       </View>
     );
   }
