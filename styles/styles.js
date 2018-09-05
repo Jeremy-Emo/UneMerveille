@@ -33,26 +33,29 @@ export const styles = StyleSheet.create({
       alignItems: 'center',
       backgroundColor: 'rgba(0,0,0,.3)'
     },
-    modalArmeBox: {
-      width : '100%',
-      height : '100%',
+    cardContainer: {
+      position: 'absolute',
+      width: 250,
+      height: 250,
+
+    },
+    card: {
+      width: '100%',
+      height: '100%',
+      position: 'absolute',
       flex: 1,
       justifyContent: "center",
       alignItems: "center",
-    },
-    slide: {
-      width: 250,
-      height: 250,
-      position: 'absolute',
+      shadowColor: '#000000',
+      shadowOffset: {
+        width: 0,
+        height: 3
+      },
+      shadowRadius: 5,
+      shadowOpacity: 1.0,
+      borderRadius: 10,
       backgroundColor: 'white',
-      borderTopColor: 'black',
-      borderTopWidth: 2,
-      borderBottomColor: 'black',
-      borderBottomWidth: 2,
-      borderRightColor: 'black',
-      borderRightWidth: 2,
-      borderLeftColor: 'black',
-      borderLeftWidth: 2,
-      borderRadius: 5,
+      backfaceVisibility: 'hidden',
     },
+
 });
