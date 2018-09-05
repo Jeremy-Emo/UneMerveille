@@ -39,16 +39,25 @@ export default class App extends React.Component {
         },
       ],
       playerInfos : {
-        lvl : 1,
+        xp : 0,
         money : 0,
       },
       modalBatailleVisible: false,
       rotateValue: new Animated.Value(0),
       playerWeapon: {},
-      enemyWeapon: {}
+      enemyWeapon: {},
+      gotData : false,
     };
 
+    AsyncStorage.getItem('playerInfos').then(data => {
+      if (data !== null) {
+        this.setState({playerInfos : JSON.parse(data)});
+      }
+      this.setState({gotData : true});
+    })
+
   }
+
 
   getRandom = () => {
     let random = Math.floor(Math.random() * (this.state.weapons.length - 1) );
@@ -68,6 +77,13 @@ export default class App extends React.Component {
       () => {
         if( playerWeapon.bat.indexOf(enemyWeapon.id) != -1 ){
           console.log('gagné ! Vous : ' + playerWeapon.nom + ' ; Lui : ' + enemyWeapon.nom);
+          let exp = (this.state.playerInfos.xp + 1)
+          this.setState({
+            playerInfos : {
+              xp : exp,
+            }
+          });
+          let test = AsyncStorage.setItem('playerInfos', JSON.stringify(this.state.playerInfos));
         } else if(enemyWeapon.bat.indexOf(playerWeapon.id) != -1){
           console.log('perdu ! Vous : ' + playerWeapon.nom + ' ; Lui : ' + enemyWeapon.nom);
         } else {
@@ -86,7 +102,7 @@ export default class App extends React.Component {
           {
            this.state.weapons.map(
                (arme) => {
-                 if(arme.lvl <= this.state.playerInfos.lvl){
+                 if(arme.lvl <= (this.state.playerInfos.xp / 100 + 1)){
                    return (
                        <Arme weapon={arme} key={arme.id} onPressWeapon={this.checkVictory} />
                    )
