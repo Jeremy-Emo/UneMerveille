@@ -66,14 +66,14 @@ export default class App extends React.Component {
     }
   }
 
-  addSkin = (idSkin, price) => {
+  addSkin = (skin) => {
     let pskins = this.state.playerInfos.skins;
     if(price <= this.state.playerInfos.money){
-      let pognon = (this.state.playerInfos.money - price);
+      let pognon = (this.state.playerInfos.money - skin.price);
       let exp = this.state.playerInfos.xp;
       let wins = this.state.playerInfos.victoires;
       let loses = this.state.playerInfos.defaites;
-      newSkins = pskins.push(idSkin);
+      newSkins = pskins.push(skin.id);
       this.setState({
         playerInfos : {
           xp : exp,
@@ -130,7 +130,7 @@ export default class App extends React.Component {
                   message: "Victoire !",
                 });
                 this.storeData();
-                
+
               } else if(enemyWeapon.bat.indexOf(playerWeapon.id) != -1){
                 let exp = this.state.playerInfos.xp;
                 let pognon = this.state.playerInfos.money;
