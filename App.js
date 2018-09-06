@@ -39,16 +39,26 @@ export default class App extends React.Component {
         },
       ],
       playerInfos : {
-        lvl : 1,
+        xp : 0,
         money : 0,
       },
       modalBatailleVisible: false,
-      rotateValue: new Animated.Value(0),
+      positionValue: new Animated.Value(0),
+      rotationValue: new Animated.Value(0),
       playerWeapon: {},
-      enemyWeapon: {}
+      enemyWeapon: {},
+      gotData : false,
     };
 
+    AsyncStorage.getItem('playerInfos').then(data => {
+      if (data !== null) {
+        this.setState({playerInfos : JSON.parse(data)});
+      }
+      this.setState({gotData : true});
+    })
+
   }
+
 
   getRandom = () => {
     let random = Math.floor(Math.random() * (this.state.weapons.length - 1) );
@@ -63,30 +73,100 @@ export default class App extends React.Component {
       playerWeapon: playerWeapon,
       enemyWeapon: enemyWeapon,
     });
-    this.state.rotateValue.setValue(0);
-    Animated.timing(this.state.rotateValue, {toValue: 1, duration: 500}).start(
+    this.state.positionValue.setValue(0);
+    this.state.rotationValue.setValue(0);
+    Animated.timing(this.state.positionValue, {toValue: 1, duration: 500}).start(
       () => {
-        if( playerWeapon.bat.indexOf(enemyWeapon.id) != -1 ){
-          console.log('gagné ! Vous : ' + playerWeapon.nom + ' ; Lui : ' + enemyWeapon.nom);
-        } else if(enemyWeapon.bat.indexOf(playerWeapon.id) != -1){
-          console.log('perdu ! Vous : ' + playerWeapon.nom + ' ; Lui : ' + enemyWeapon.nom);
-        } else {
-          console.log('egalité...  Vous : ' + playerWeapon.nom + ' ; Lui : ' + enemyWeapon.nom);
-        }
-        this.setState({modalBatailleVisible: false});
+        Animated.spring(this.state.rotationValue, {toValue: 180, friction: 8, tension: 10}).start(
+          () => {
+            if( playerWeapon.bat.indexOf(enemyWeapon.id) != -1 ){
+              console.log('gagné ! Vous : ' + playerWeapon.nom + ' ; Lui : ' + enemyWeapon.nom);
+              let exp = (this.state.playerInfos.xp + 1)
+              this.setState({
+                playerInfos : {
+                  xp : exp,
+                }
+              });
+              let test = AsyncStorage.setItem('playerInfos', JSON.stringify(this.state.playerInfos));
+            } else if(enemyWeapon.bat.indexOf(playerWeapon.id) != -1){
+              console.log('perdu ! Vous : ' + playerWeapon.nom + ' ; Lui : ' + enemyWeapon.nom);
+            } else {
+              console.log('egalité...  Vous : ' + playerWeapon.nom + ' ; Lui : ' + enemyWeapon.nom);
+            }
+            this.setState({modalBatailleVisible: false});
+          }
+        )
       }
     );
   }
 
   render() {
-    const { rotateValue} = this.state;
+
+    const card1 = {
+      frontStyle: {
+        transform: [{rotateX: this.state.rotationValue.interpolate({
+          inputRange: [0, 180],
+          outputRange: ['0deg', '180deg'],
+        })}],
+        opacity: this.state.rotationValue.interpolate({
+          inputRange: [89, 90],
+          outputRange: [1, 0]
+        })
+      },
+      backStyle: {
+        transform: [{rotateX: this.state.rotationValue.interpolate({
+          inputRange: [0, 180],
+          outputRange: ['180deg', '0deg'],
+        })}],
+        opacity: this.state.rotationValue.interpolate({
+          inputRange: [89, 90],
+          outputRange: [0, 1]
+        })
+      },
+      positionStyle: {
+        bottom: this.state.positionValue.interpolate({
+          inputRange: [0, 1],
+          outputRange: ['100%', '55%']
+        })
+      }
+    }
+
+    const card2 = {
+      frontStyle: {
+        transform: [{rotateX: this.state.rotationValue.interpolate({
+          inputRange: [0, 180],
+          outputRange: ['0deg', '-180deg'],
+        })}],
+        opacity: this.state.rotationValue.interpolate({
+          inputRange: [89, 90],
+          outputRange: [1, 0]
+        })
+      },
+      backStyle: {
+        transform: [{rotateX: this.state.rotationValue.interpolate({
+          inputRange: [0, 180],
+          outputRange: ['-180deg', '0deg'],
+        })}],
+        opacity: this.state.rotationValue.interpolate({
+          inputRange: [89, 90],
+          outputRange: [0, 1]
+        })
+      },
+      positionStyle: {
+        top: this.state.positionValue.interpolate({
+          inputRange: [0, 1],
+          outputRange: ['100%', '55%']
+        })
+      }
+    }
+
     return (
       <View style={styles.container}>
         <ScrollView horizontal={true} style={styles.mesArmes}>
           {
            this.state.weapons.map(
                (arme) => {
-                 if(arme.lvl <= this.state.playerInfos.lvl){
+                 if(arme.lvl <= (this.state.playerInfos.xp / 100 + 1)){
                    return (
                        <Arme weapon={arme} key={arme.id} onPressWeapon={this.checkVictory} />
                    )
@@ -95,31 +175,26 @@ export default class App extends React.Component {
            )
           }
         </ScrollView>
+
         <Modal visible={this.state.modalBatailleVisible} transparent={false} onRequestClose={() => {}}>
           <View style={styles.batailleModal}>
-            <Animated.View style={[{bottom: this.state.rotateValue.interpolate({inputRange: [0, 1],outputRange: ['100%', '55%']})}, styles.slide]}>
-            <View style={styles.modalArmeBox}>
-            <Image
-              style={{maxWidth:"100%"}}
-              source={this.state.enemyWeapon.img}
-              resizeMode="contain"
-            />
-          <Text style={styles.weaponText}>
-            {this.state.enemyWeapon.nom}
-          </Text>
-          </View>
+            <Animated.View style={[card1.positionStyle, styles.cardContainer]}>
+              <Animated.View style={[card1.frontStyle, styles.card]}></Animated.View>
+              <Animated.View style={[card1.backStyle, styles.card]}>
+                <Image style={{maxWidth:"100%"}} source={this.state.enemyWeapon.img} resizeMode="contain"/>
+                <Text style={styles.weaponText}>
+                  {this.state.enemyWeapon.nom}
+                </Text>
+              </Animated.View>
             </Animated.View>
-            <Animated.View style={[{top: this.state.rotateValue.interpolate({inputRange: [0, 1],outputRange: ['100%', '55%']})}, styles.slide]}>
-            <View style={styles.modalArmeBox}>
-            <Image
-              style={{maxWidth:"100%"}}
-              source={this.state.playerWeapon.img}
-              resizeMode="contain"
-            />
-          <Text style={styles.weaponText}>
-            {this.state.playerWeapon.nom}
-          </Text>
-          </View>
+            <Animated.View style={[card2.positionStyle, styles.cardContainer]}>
+              <Animated.View style={[card2.frontStyle, styles.card]}></Animated.View>
+              <Animated.View style={[card2.backStyle, styles.card]}>
+                <Image style={{maxWidth:"100%"}} source={this.state.playerWeapon.img} resizeMode="contain"/>
+                <Text style={styles.weaponText}>
+                  {this.state.playerWeapon.nom}
+                </Text>
+              </Animated.View>
             </Animated.View>
           </View>
         </Modal>
