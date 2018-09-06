@@ -185,6 +185,7 @@ export default class App extends React.Component {
       <View style={styles.container}>
         <View>
         <Text>Niveau du joueur : {Math.trunc(this.state.playerInfos.xp / 10 + 1)}</Text>
+        <Text>Expérience avant niveau suivant : { 10 - (this.state.playerInfos.xp % 10) }</Text>
         </View>
         <ScrollView horizontal={true} style={styles.mesArmes}>
           {
