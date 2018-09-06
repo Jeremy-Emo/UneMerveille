@@ -2,7 +2,7 @@ export const confWeapons = [
         {
           id : 1,
           nom : "Pierre",
-          bat : [3,5,10,12],
+          bat : [3,5,10,12,15],
           lvl : 1,
           img : require("../images/pierre.png"),
         },
@@ -37,14 +37,14 @@ export const confWeapons = [
         {
           id : 6,
           nom : "Licorne",
-          bat : [2,5,8,13],
+          bat : [2,5,8,13,16],
           lvl : 4,
           img : require("../images/licorne.png"),
         },
         {
           id : 7,
           nom : "The ULTIMATE",
-          bat : [1,2,3,4,5,7,9,12],
+          bat : [1,2,3,4,5,7,9,12,15,16],
           lvl : 20,
           img : require("../images/ultimate.png"),
         },
@@ -96,5 +96,20 @@ export const confWeapons = [
           lvl : 10,
           bat : [7],
           img : require("../images/oreiller.png"),
+        },
+        {
+          id : 15,
+          nom : "Poulet Musclé",
+          lvl : 8,
+          bat : [8,9],
+          img : require("../images/poulet_muscle.png"),
+          price : 100,
+        },
+        {
+          id : 16,
+          nom : "Sabre Laser",
+          lvl : 9,
+          bat : [1,4,8,9],
+          img : require("../images/lasersaber.png"),
         },
       ];
