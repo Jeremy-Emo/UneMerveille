@@ -44,7 +44,7 @@ export const confWeapons = [
         {
           id : 7,
           nom : "The ULTIMATE",
-          bat : [1,2,3,4,5,7,9],
+          bat : [1,2,3,4,5,7,9,12],
           lvl : 20,
           img : require("../images/ultimate.png"),
         },
