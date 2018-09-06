@@ -12,7 +12,7 @@ export default class Arme extends React.Component {
     return (
         <TouchableOpacity style={styles.armeBox} onPress={() => this.props.onPressWeapon(this.props.weapon)}>
           <Image
-            style={{maxWidth:"100%"}}
+            style={{maxWidth:"100%", maxHeight: "100%"}}
             source={this.props.weapon.img}
             resizeMode="contain"
           />

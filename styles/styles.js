@@ -18,6 +18,7 @@ export const styles = StyleSheet.create({
       alignItems: "center",
       marginLeft : 10,
       marginRight: 10,
+      padding : 10,
     },
     mesArmes: {
       flex: 1,

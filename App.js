@@ -28,14 +28,14 @@ export default class App extends React.Component {
         {
           id : 3,
           nom : "Ciseaux",
-          bat : [2,6],
+          bat : [2,6,9],
           lvl : 1,
           img : require("./images/ciseaux.png"),
         },
         {
           id : 4,
           nom : "Puit",
-          bat : [1,3],
+          bat : [1,3,8],
           lvl : 2,
           img : require("./images/puit.png"),
         },
@@ -49,16 +49,30 @@ export default class App extends React.Component {
         {
           id : 6,
           nom : "Licorne",
-          bat : [2,5],
+          bat : [2,5,8],
           lvl : 4,
           img : require("./images/licorne.png"),
         },
         {
           id : 7,
           nom : "The ULTIMATE",
-          bat : [1,2,3,4,5,6,7],
+          bat : [1,2,3,4,5,7,9],
           lvl : 5,
           img : require("./images/ultimate.png"),
+        },
+        {
+          id : 8,
+          nom : "Spartiate",
+          bat : [1,2,3,5],
+          lvl : 6,
+          img : require("./images/spartiate.png"),
+        },
+        {
+          id : 9,
+          nom : "Corde",
+          bat : [1,4,6],
+          lvl : 7,
+          img : require("./images/corde.png"),
         },
       ],
       playerInfos : {
@@ -131,7 +145,7 @@ export default class App extends React.Component {
                 this.setState({modalBatailleVisible: false});
               }
             )
-            
+
           }
         )
       }
