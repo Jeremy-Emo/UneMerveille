@@ -2,7 +2,7 @@ export const confWeapons = [
         {
           id : 1,
           nom : "Pierre",
-          bat : [3,5,10,12,15,18],
+          bat : [3,5,10,12,15,18,21],
           lvl : 1,
           img : require("../images/pierre.png"),
         },
@@ -16,7 +16,7 @@ export const confWeapons = [
         {
           id : 3,
           nom : "Ciseaux",
-          bat : [2,6,9,14,18],
+          bat : [2,6,9,14,18,20],
           lvl : 1,
           img : require("../images/ciseaux.png"),
         },
@@ -30,7 +30,7 @@ export const confWeapons = [
         {
           id : 5,
           nom : "Bazooka",
-          bat : [2,3,4,14,18],
+          bat : [2,3,4,14,18,20],
           lvl : 3,
           img : require("../images/bazooka.png"),
         },
@@ -44,14 +44,14 @@ export const confWeapons = [
         {
           id : 7,
           nom : "The ULTIMATE",
-          bat : [1,2,3,4,5,7,9,12,15,16],
+          bat : [1,2,3,4,5,7,9,12,15,16,21],
           lvl : 20,
           img : require("../images/ultimate.png"),
         },
         {
           id : 8,
           nom : "Spartiate",
-          bat : [1,3,5,13,14,18],
+          bat : [1,3,5,13,14,18,20],
           lvl : 6,
           img : require("../images/spartiate.png"),
         },
@@ -116,7 +116,7 @@ export const confWeapons = [
           id : 17,
           nom : "Slip",
           lvl : 13,
-          bat : [8,11,12,15,19],
+          bat : [8,11,12,15,19,21],
           img : require("../images/slip.png"),
         },
         {
@@ -132,5 +132,21 @@ export const confWeapons = [
           lvl : 14,
           bat : [6,7,8,18],
           img : require("../images/pinup.png"),
+        },
+        {
+          id : 20,
+          nom : "Pink Metal Pillow",
+          lvl : 11,
+          bat : [7,19],
+          img : require("../images/oreiller_metal.png"),
+          price : 100,
+        },
+        {
+          id : 21,
+          nom : "Poulet Rôti",
+          lvl : 8,
+          bat : [8,9,18],
+          img : require("../images/poulet_roti.png"),
+          price : 150,
         },
       ];
