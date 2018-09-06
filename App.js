@@ -17,7 +17,7 @@ export default class App extends React.Component {
       playerInfos : {
         xp : 0,
         money : 0,
-        skins : [1,2,3,4,5,6,7,8,9,10,11,12,13,14,16,17,18,19],
+        skins : [],
         victoires : 0,
         defaites : 0,
       },
@@ -192,7 +192,7 @@ export default class App extends React.Component {
           {
            this.state.weapons.map(
                (arme) => {
-                 if( (arme.lvl <= (this.state.playerInfos.xp / 10 + 1)) && (this.state.playerInfos.skins.indexOf(arme.id) != -1) ){
+                 if( (arme.lvl <= (this.state.playerInfos.xp / 10 + 1)) && (this.state.playerInfos.skins.indexOf(arme.id) != -1 || arme.price == null) ){
                    return (
                        <Arme weapon={arme} key={arme.id} onPressWeapon={this.checkVictory} />
                    )
@@ -205,7 +205,7 @@ export default class App extends React.Component {
           <Magasin state={this.state} closeMagasinModal={() => this.closeMagasinModal()} addSkin={this.addSkin}/>
         <Bataille state={this.state} closeBatailleModal={() => this.closeBatailleModal()}/>
 
-        
+
       </View>
     );
   }
