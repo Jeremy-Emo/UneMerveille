@@ -220,18 +220,18 @@ export default class App extends React.Component {
           <View style={styles.batailleModal}>
             <Animated.Text style={[{opacity: this.state.opacityValue}, styles.batailleModalText]}>{this.state.message}</Animated.Text>
             <Animated.View style={[card1.positionStyle, styles.cardContainer]}>
-              <Animated.View style={[card1.frontStyle, styles.card]}></Animated.View>
-              <Animated.View style={[card1.backStyle, styles.card]}>
-                <Image style={{maxWidth:"100%"}} source={this.state.enemyWeapon.img} resizeMode="contain"/>
+              <Animated.Image style={[card1.frontStyle, styles.card]} resizeMode="cover" source={require("./images/cardBackground.png")}/>
+              <Animated.View style={[card1.backStyle, styles.card, {backgroundColor: 'white'}]}>
+                <Image style={{maxWidth:"100%", maxHeight: "100%"}} source={this.state.enemyWeapon.img} resizeMode="contain"/>
                 <Text style={styles.weaponText}>
                   {this.state.enemyWeapon.nom}
                 </Text>
               </Animated.View>
             </Animated.View>
             <Animated.View style={[card2.positionStyle, styles.cardContainer]}>
-              <Animated.View style={[card2.frontStyle, styles.card]}></Animated.View>
-              <Animated.View style={[card2.backStyle, styles.card]}>
-                <Image style={{maxWidth:"100%"}} source={this.state.playerWeapon.img} resizeMode="contain"/>
+            <Animated.Image style={[card2.frontStyle, styles.card]} resizeMode="cover" source={require("./images/cardBackground.png")}/>
+              <Animated.View style={[card2.backStyle, styles.card, {backgroundColor: 'white'}]}>
+                <Image style={{maxWidth:"100%", maxHeight: "100%"}} source={this.state.playerWeapon.img} resizeMode="contain"/>
                 <Text style={styles.weaponText}>
                   {this.state.playerWeapon.nom}
                 </Text>
