@@ -15,6 +15,7 @@ export default class App extends React.Component {
       playerInfos : {
         xp : 0,
         money : 0,
+        skins : [],
       },
       modalBatailleVisible: false,
       positionValue: new Animated.Value(0),
