@@ -2,6 +2,7 @@ import React from 'react';
 import { AsyncStorage, StyleSheet, Text, View, ScrollView, Button, Animated, Modal, Image } from 'react-native';
 import Arme from "./components/Arme";
 import InfosPlayer from "./components/InfosPlayer";
+import Header from "./components/Header";
 import {styles} from "./styles/styles";
 
 export default class App extends React.Component {
@@ -184,6 +185,7 @@ export default class App extends React.Component {
 
     return (
       <View style={styles.container}>
+        <Header/>
         <InfosPlayer infos={this.state.playerInfos} />
         <ScrollView horizontal={true} style={styles.mesArmes}>
           {
