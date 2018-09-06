@@ -31,7 +31,12 @@ export const styles = StyleSheet.create({
     batailleModal: {
       flex: 1,
       alignItems: 'center',
+      justifyContent: 'center',
       backgroundColor: 'rgba(0,0,0,.3)'
+    },
+    batailleModalText: {
+      fontSize: 50,
+      fontWeight: 'bold',
     },
     cardContainer: {
       position: 'absolute',

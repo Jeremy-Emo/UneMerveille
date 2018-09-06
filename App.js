@@ -67,9 +67,11 @@ export default class App extends React.Component {
       modalBatailleVisible: false,
       positionValue: new Animated.Value(0),
       rotationValue: new Animated.Value(0),
+      opacityValue: new Animated.Value(0),
       playerWeapon: {},
       enemyWeapon: {},
       gotData : false,
+      message: null,
     };
 
     AsyncStorage.getItem('playerInfos').then(data => {
@@ -97,9 +99,10 @@ export default class App extends React.Component {
     });
     this.state.positionValue.setValue(0);
     this.state.rotationValue.setValue(0);
-    Animated.timing(this.state.positionValue, {toValue: 1, duration: 500}).start(
+    this.state.opacityValue.setValue(0);
+    Animated.timing(this.state.positionValue, {toValue: 1, duration: 800}).start(
       () => {
-        Animated.spring(this.state.rotationValue, {toValue: 180, friction: 8, tension: 10}).start(
+        Animated.timing(this.state.rotationValue, {toValue: 180, duration: 800}).start(
           () => {
             if( playerWeapon.bat.indexOf(enemyWeapon.id) != -1 ){
               console.log('gagné ! Vous : ' + playerWeapon.nom + ' ; Lui : ' + enemyWeapon.nom);
@@ -107,15 +110,27 @@ export default class App extends React.Component {
               this.setState({
                 playerInfos : {
                   xp : exp,
-                }
+                },
+                message: "Victoire !",
               });
               let test = AsyncStorage.setItem('playerInfos', JSON.stringify(this.state.playerInfos));
             } else if(enemyWeapon.bat.indexOf(playerWeapon.id) != -1){
               console.log('perdu ! Vous : ' + playerWeapon.nom + ' ; Lui : ' + enemyWeapon.nom);
+              this.setState({
+                message: "Défaite !",
+              })
             } else {
               console.log('egalité...  Vous : ' + playerWeapon.nom + ' ; Lui : ' + enemyWeapon.nom);
+              this.setState({
+                message: "Egalité...",
+              })
             }
-            this.setState({modalBatailleVisible: false});
+            Animated.timing(this.state.opacityValue, {toValue: 1, duration: 1000}).start(
+              () => {
+                this.setState({modalBatailleVisible: false});
+              }
+            )
+            
           }
         )
       }
@@ -201,6 +216,7 @@ export default class App extends React.Component {
 
         <Modal visible={this.state.modalBatailleVisible} transparent={false} onRequestClose={() => {}}>
           <View style={styles.batailleModal}>
+            <Animated.Text style={[{opacity: this.state.opacityValue}, styles.batailleModalText]}>{this.state.message}</Animated.Text>
             <Animated.View style={[card1.positionStyle, styles.cardContainer]}>
               <Animated.View style={[card1.frontStyle, styles.card]}></Animated.View>
               <Animated.View style={[card1.backStyle, styles.card]}>
