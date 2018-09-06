@@ -12,30 +12,51 @@ export default class App extends React.Component {
         {
           id : 1,
           nom : "Pierre",
-          bat : [3],
+          bat : [3,5],
           lvl : 1,
           img : require("./images/pierre.png"),
         },
         {
           id : 2,
           nom : "Papier",
-          bat : [1],
+          bat : [1,4],
           lvl : 1,
           img : require("./images/papier.png"),
         },
         {
           id : 3,
           nom : "Ciseaux",
-          bat : [2],
+          bat : [2,6],
           lvl : 1,
           img : require("./images/ciseaux.png"),
         },
         {
           id : 4,
           nom : "Puit",
-          bat : [1,2,3],
+          bat : [1,3],
           lvl : 2,
-          img : "",
+          img : require("./images/puit.png"),
+        },
+        {
+          id : 5,
+          nom : "Bazooka",
+          bat : [2,3,4],
+          lvl : 3,
+          img : require("./images/bazooka.png"),
+        },
+        {
+          id : 6,
+          nom : "Licorne",
+          bat : [2,5],
+          lvl : 4,
+          img : require("./images/licorne.png"),
+        },
+        {
+          id : 7,
+          nom : "The ULTIMATE",
+          bat : [1,2,3,4,5,6,7],
+          lvl : 5,
+          img : require("./images/ultimate.png"),
         },
       ],
       playerInfos : {
@@ -61,7 +82,7 @@ export default class App extends React.Component {
 
 
   getRandom = () => {
-    let random = Math.floor(Math.random() * (this.state.weapons.length - 1) );
+    let random = Math.floor(Math.random() * (this.state.weapons.length) );
     return this.state.weapons[random];
   }
 
@@ -162,11 +183,14 @@ export default class App extends React.Component {
 
     return (
       <View style={styles.container}>
+        <View>
+        <Text>Niveau du joueur : {Math.trunc(this.state.playerInfos.xp / 10 + 1)}</Text>
+        </View>
         <ScrollView horizontal={true} style={styles.mesArmes}>
           {
            this.state.weapons.map(
                (arme) => {
-                 if(arme.lvl <= (this.state.playerInfos.xp / 100 + 1)){
+                 if(arme.lvl <= (this.state.playerInfos.xp / 10 + 1)){
                    return (
                        <Arme weapon={arme} key={arme.id} onPressWeapon={this.checkVictory} />
                    )
