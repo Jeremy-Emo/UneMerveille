@@ -28,7 +28,7 @@ export default class App extends React.Component {
         {
           id : 3,
           nom : "Ciseaux",
-          bat : [2,6],
+          bat : [2,6,9],
           lvl : 1,
           img : require("./images/ciseaux.png"),
         },
@@ -56,7 +56,7 @@ export default class App extends React.Component {
         {
           id : 7,
           nom : "The ULTIMATE",
-          bat : [1,2,3,4,5,7],
+          bat : [1,2,3,4,5,7,9],
           lvl : 5,
           img : require("./images/ultimate.png"),
         },
@@ -66,6 +66,13 @@ export default class App extends React.Component {
           bat : [1,2,3,5],
           lvl : 6,
           img : require("./images/spartiate.png"),
+        },
+        {
+          id : 9,
+          nom : "Corde",
+          bat : [1,4,6],
+          lvl : 7,
+          img : require("./images/corde.png"),
         },
       ],
       playerInfos : {
