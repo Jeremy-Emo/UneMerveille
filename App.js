@@ -16,7 +16,7 @@ export default class App extends React.Component {
       playerInfos : {
         xp : 0,
         money : 0,
-        skins : [1,2,3,4,5,6,7,8,9,10,11,12,13,14],
+        skins : [1,2,3,4,5,6,7,8,9,10,11,12,13,14,16,17,18,19],
         victoires : 0,
         defaites : 0,
       },
