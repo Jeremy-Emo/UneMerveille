@@ -30,7 +30,7 @@ export default class App extends React.Component {
     };
 
     this.retrieveData();
- 
+
 
   }
 
@@ -39,22 +39,18 @@ export default class App extends React.Component {
        let data = await AsyncStorage.getItem('playerInfos').then(data => {
         if (data !== null) {
           let jsonData = JSON.parse(data);
-          if(jsonData.skins && jsonData.victoires && jsonData.defaites ){
-            this.setState({playerInfos : jsonData});
-          } else {
-            let pskins = this.state.playerInfos.skins;
-            let wins = this.state.playerInfos.victoires;
-            let loses = this.state.playerInfos.defaites;
-            this.setState({
-              playerInfos : {
-                xp : jsonData.xp,
-                money : jsonData.money,
-                skins : pskins,
-                victoires : wins,
-                defaites : loses,
-              }
-            })
-          }
+          let pskins = jsonData.skins ? jsonData.skins : this.state.playerInfos.skins;
+          let wins = jsonData.victoires ? jsonData.victoires : this.state.playerInfos.victoires;
+          let loses = jsonData.defaites ? jsonData.defaites : this.state.playerInfos.defaites;
+          this.setState({
+            playerInfos : {
+              xp : jsonData.xp,
+              money : jsonData.money,
+              skins : pskins,
+              victoires : wins,
+              defaites : loses,
+            }
+          })
         }
       })
     } catch (error) {
@@ -126,7 +122,7 @@ export default class App extends React.Component {
                   message: "Victoire !",
                 });
                 let test = AsyncStorage.setItem('playerInfos', JSON.stringify(this.state.playerInfos));
-                
+
               } else if(enemyWeapon.bat.indexOf(playerWeapon.id) != -1){
                 let exp = this.state.playerInfos.xp;
                 let pognon = this.state.playerInfos.money;
@@ -155,12 +151,12 @@ export default class App extends React.Component {
                   });
                 }
               )
-  
+
             }
           )
         }
       );
-      
+
     }
   }
 
