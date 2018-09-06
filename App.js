@@ -16,6 +16,8 @@ export default class App extends React.Component {
         xp : 0,
         money : 0,
         skins : [1,2,3,4,5,6,7,8,9,10,11,12,13,14],
+        victoires : 0,
+        defaites : 0,
       },
       modalBatailleVisible: false,
       positionValue: new Animated.Value(0),
@@ -30,15 +32,19 @@ export default class App extends React.Component {
     AsyncStorage.getItem('playerInfos').then(data => {
       if (data !== null) {
         let jsonData = JSON.parse(data);
-        if(jsonData.skins){
+        if(jsonData.skins && jsonData.victoires && jsonData.defaites ){
           this.setState({playerInfos : jsonData});
         } else {
           let pskins = this.state.playerInfos.skins;
+          let wins = this.state.playerInfos.victoires;
+          let loses = this.state.playerInfos.defaites;
           this.setState({
             playerInfos : {
               xp : jsonData.xp,
               money : jsonData.money,
               skins : pskins,
+              victoires : wins,
+              defaites : loses,
             }
           })
         }
@@ -53,12 +59,16 @@ export default class App extends React.Component {
     if(price <= this.state.playerInfos.money){
       let pognon = (this.state.playerInfos.money - price);
       let exp = this.state.playerInfos.xp;
+      let wins = this.state.playerInfos.victoires;
+      let loses = this.state.playerInfos.defaites;
       newSkins = pskins.push(idSkin);
       this.setState({
         playerInfos : {
           xp : exp,
           money : pognon,
           pskins : newSkins,
+          victoires : wins,
+          defaites : loses,
         }
       })
       let test = AsyncStorage.setItem('playerInfos', JSON.stringify(this.state.playerInfos));
@@ -90,18 +100,34 @@ export default class App extends React.Component {
               if( playerWeapon.bat.indexOf(enemyWeapon.id) != -1 ){
                 let exp = (this.state.playerInfos.xp + 1);
                 let pognon = (this.state.playerInfos.money + 5);
+                let wins = this.state.playerInfos.victoires + 1;
+                let loses = this.state.playerInfos.defaites;
                 let pskins = this.state.playerInfos.skins;
                 this.setState({
                   playerInfos : {
                     xp : exp,
                     money : pognon,
                     skins : pskins,
+                    victoires : wins,
+                    defaites : loses,
                   },
                   message: "Victoire !",
                 });
                 let test = AsyncStorage.setItem('playerInfos', JSON.stringify(this.state.playerInfos));
               } else if(enemyWeapon.bat.indexOf(playerWeapon.id) != -1){
+                let exp = this.state.playerInfos.xp;
+                let pognon = this.state.playerInfos.money;
+                let wins = this.state.playerInfos.victoires;
+                let loses = this.state.playerInfos.defaites + 1;
+                let pskins = this.state.playerInfos.skins;
                 this.setState({
+                  playerInfos : {
+                    xp : exp,
+                    money : pognon,
+                    skins : pskins,
+                    victoires : wins,
+                    defaites : loses,
+                  },
                   message: "Défaite !",
                 })
               } else {

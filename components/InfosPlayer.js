@@ -14,6 +14,7 @@ export default class InfosPlayer extends React.Component {
         <Text>Niveau du joueur : {Math.trunc(this.props.infos.xp / 10 + 1)}</Text>
         <Text>Expérience avant niveau suivant : { 10 - (this.props.infos.xp % 10) }</Text>
         <Text>Pognon : { this.props.infos.money }</Text>
+        <Text>Victoires : { this.props.infos.victoires } / Défaites : { this.props.infos.defaites }</Text>
       </View>
     );
   }
