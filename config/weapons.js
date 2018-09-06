@@ -22,7 +22,7 @@ export const confWeapons = [
         },
         {
           id : 4,
-          nom : "Puit",
+          nom : "Puits",
           bat : [1,3,8,10],
           lvl : 2,
           img : require("../images/puit.png"),
