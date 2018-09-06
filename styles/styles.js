@@ -62,5 +62,22 @@ export const styles = StyleSheet.create({
       backgroundColor: 'white',
       backfaceVisibility: 'hidden',
     },
-
+    header: {
+      paddingTop: 40,
+      paddingBottom: 40,
+      paddingLeft: 25,
+      paddingRight: 25,
+      position : "absolute",
+      top : 0,
+      width: "100%",
+      alignItems: "center",
+      justifyContent : "center",
+      backgroundColor: 'rgba(0, 0, 0, 0.5)',
+      flexWrap: "wrap",
+    },
+    headerText: {
+      fontSize : 25,
+      color : "white",
+      textAlign : "center",
+    },
 });
