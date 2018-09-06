@@ -3,6 +3,7 @@ import { AsyncStorage, StyleSheet, Text, View, ScrollView, Button, Animated, Mod
 import Arme from "./components/Arme";
 import InfosPlayer from "./components/InfosPlayer";
 import Header from "./components/Header";
+import Bataille from "./components/Bataille";
 import {styles} from "./styles/styles";
 import {confWeapons} from "./config/weapons";
 
@@ -20,38 +21,45 @@ export default class App extends React.Component {
         defaites : 0,
       },
       modalBatailleVisible: false,
+      playerWeapon: {},
+      enemyWeapon: {},
       positionValue: new Animated.Value(0),
       rotationValue: new Animated.Value(0),
       opacityValue: new Animated.Value(0),
-      playerWeapon: {},
-      enemyWeapon: {},
-      gotData : false,
       message: null,
     };
 
-    AsyncStorage.getItem('playerInfos').then(data => {
-      if (data !== null) {
-        let jsonData = JSON.parse(data);
-        if(jsonData.skins && jsonData.victoires && jsonData.defaites ){
-          this.setState({playerInfos : jsonData});
-        } else {
-          let pskins = this.state.playerInfos.skins;
-          let wins = this.state.playerInfos.victoires;
-          let loses = this.state.playerInfos.defaites;
-          this.setState({
-            playerInfos : {
-              xp : jsonData.xp,
-              money : jsonData.money,
-              skins : pskins,
-              victoires : wins,
-              defaites : loses,
-            }
-          })
-        }
-      }
-      this.setState({gotData : true});
-    })
+    this.retrieveData();
+ 
 
+  }
+
+  retrieveData = async () => {
+    try {
+       let data = await AsyncStorage.getItem('playerInfos').then(data => {
+        if (data !== null) {
+          let jsonData = JSON.parse(data);
+          if(jsonData.skins && jsonData.victoires && jsonData.defaites ){
+            this.setState({playerInfos : jsonData});
+          } else {
+            let pskins = this.state.playerInfos.skins;
+            let wins = this.state.playerInfos.victoires;
+            let loses = this.state.playerInfos.defaites;
+            this.setState({
+              playerInfos : {
+                xp : jsonData.xp,
+                money : jsonData.money,
+                skins : pskins,
+                victoires : wins,
+                defaites : loses,
+              }
+            })
+          }
+        }
+      })
+    } catch (error) {
+      console.error(error);
+    }
   }
 
   addSkin = (idSkin, price) => {
@@ -78,6 +86,10 @@ export default class App extends React.Component {
   getRandom = () => {
     let random = Math.floor(Math.random() * (this.state.weapons.length) );
     return this.state.weapons[random];
+  }
+
+  closeBatailleModal = () => {
+    this.setState({modalBatailleVisible: false});
   }
 
   checkVictory = (playerWeapon) => {
@@ -114,6 +126,7 @@ export default class App extends React.Component {
                   message: "Victoire !",
                 });
                 let test = AsyncStorage.setItem('playerInfos', JSON.stringify(this.state.playerInfos));
+                
               } else if(enemyWeapon.bat.indexOf(playerWeapon.id) != -1){
                 let exp = this.state.playerInfos.xp;
                 let pognon = this.state.playerInfos.money;
@@ -137,76 +150,21 @@ export default class App extends React.Component {
               }
               Animated.timing(this.state.opacityValue, {toValue: 1, duration: 1000}).start(
                 () => {
-                  this.setState({modalBatailleVisible: false});
+                  this.setState({
+                    modalBatailleVisible: false,
+                  });
                 }
               )
-
+  
             }
           )
         }
       );
+      
     }
   }
 
   render() {
-
-    const card1 = {
-      frontStyle: {
-        transform: [{rotateX: this.state.rotationValue.interpolate({
-          inputRange: [0, 180],
-          outputRange: ['0deg', '180deg'],
-        })}],
-        opacity: this.state.rotationValue.interpolate({
-          inputRange: [89, 90],
-          outputRange: [1, 0]
-        })
-      },
-      backStyle: {
-        transform: [{rotateX: this.state.rotationValue.interpolate({
-          inputRange: [0, 180],
-          outputRange: ['180deg', '0deg'],
-        })}],
-        opacity: this.state.rotationValue.interpolate({
-          inputRange: [89, 90],
-          outputRange: [0, 1]
-        })
-      },
-      positionStyle: {
-        bottom: this.state.positionValue.interpolate({
-          inputRange: [0, 1],
-          outputRange: ['100%', '55%']
-        })
-      }
-    }
-
-    const card2 = {
-      frontStyle: {
-        transform: [{rotateX: this.state.rotationValue.interpolate({
-          inputRange: [0, 180],
-          outputRange: ['0deg', '-180deg'],
-        })}],
-        opacity: this.state.rotationValue.interpolate({
-          inputRange: [89, 90],
-          outputRange: [1, 0]
-        })
-      },
-      backStyle: {
-        transform: [{rotateX: this.state.rotationValue.interpolate({
-          inputRange: [0, 180],
-          outputRange: ['-180deg', '0deg'],
-        })}],
-        opacity: this.state.rotationValue.interpolate({
-          inputRange: [89, 90],
-          outputRange: [0, 1]
-        })
-      },
-      positionStyle: {
-        top: this.state.positionValue.interpolate({
-          inputRange: [0, 1],
-          outputRange: ['100%', '55%']
-        })
-      }
-    }
 
     return (
       <View style={styles.container}>
@@ -226,29 +184,7 @@ export default class App extends React.Component {
           }
         </ScrollView>
 
-        <Modal visible={this.state.modalBatailleVisible} transparent={false} onRequestClose={() => {}}>
-          <View style={styles.batailleModal}>
-            <Animated.Text style={[{opacity: this.state.opacityValue}, styles.batailleModalText]}>{this.state.message}</Animated.Text>
-            <Animated.View style={[card1.positionStyle, styles.cardContainer]}>
-              <Animated.Image style={[card1.frontStyle, styles.card]} resizeMode="cover" source={require("./images/cardBackground.png")}/>
-              <Animated.View style={[card1.backStyle, styles.card, {backgroundColor: 'white'}]}>
-                <Image style={{maxWidth:"100%", maxHeight: "100%"}} source={this.state.enemyWeapon.img} resizeMode="contain"/>
-                <Text style={styles.weaponText}>
-                  {this.state.enemyWeapon.nom}
-                </Text>
-              </Animated.View>
-            </Animated.View>
-            <Animated.View style={[card2.positionStyle, styles.cardContainer]}>
-            <Animated.Image style={[card2.frontStyle, styles.card]} resizeMode="cover" source={require("./images/cardBackground.png")}/>
-              <Animated.View style={[card2.backStyle, styles.card, {backgroundColor: 'white'}]}>
-                <Image style={{maxWidth:"100%", maxHeight: "100%"}} source={this.state.playerWeapon.img} resizeMode="contain"/>
-                <Text style={styles.weaponText}>
-                  {this.state.playerWeapon.nom}
-                </Text>
-              </Animated.View>
-            </Animated.View>
-          </View>
-        </Modal>
+        <Bataille state={this.state} closeBatailleModal={() => this.closeBatailleModal()}/>
       </View>
     );
   }
