@@ -138,9 +138,11 @@ export default class App extends React.Component {
               if( playerWeapon.bat.indexOf(enemyWeapon.id) != -1 ){
                 console.log('gagné ! Vous : ' + playerWeapon.nom + ' ; Lui : ' + enemyWeapon.nom);
                 let exp = (this.state.playerInfos.xp + 1)
+                let pognon = (this.state.playerInfos.money + 5)
                 this.setState({
                   playerInfos : {
                     xp : exp,
+                    money : pognon,
                   },
                   message: "Victoire !",
                 });
