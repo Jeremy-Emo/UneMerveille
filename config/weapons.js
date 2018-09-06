@@ -9,7 +9,7 @@ export const confWeapons = [
         {
           id : 2,
           nom : "Papier",
-          bat : [1,4],
+          bat : [1,4,18],
           lvl : 1,
           img : require("../images/papier.png"),
         },
@@ -58,14 +58,14 @@ export const confWeapons = [
         {
           id : 9,
           nom : "Corde",
-          bat : [1,4,6],
-          lvl : 3,
+          bat : [1,4,6,17],
+          lvl : 10,
           img : require("../images/corde.png"),
         },
         {
           id : 10,
           nom : "Bière",
-          bat : [7,8,11,13],
+          bat : [7,8,11,13,17],
           lvl : 6,
           img : require("../images/biere.png"),
         },
@@ -80,7 +80,7 @@ export const confWeapons = [
           id : 12,
           nom : "Poulet",
           lvl : 8,
-          bat : [8,9],
+          bat : [8,9,18],
           img : require("../images/poulet.png"),
         },
         {
@@ -93,7 +93,7 @@ export const confWeapons = [
         {
           id : 14,
           nom : "Oreiller",
-          lvl : 10,
+          lvl : 11,
           bat : [7],
           img : require("../images/oreiller.png"),
         },
@@ -101,7 +101,7 @@ export const confWeapons = [
           id : 15,
           nom : "Poulet Musclé",
           lvl : 8,
-          bat : [8,9],
+          bat : [8,9,18],
           img : require("../images/poulet_muscle.png"),
           price : 100,
         },
@@ -111,5 +111,19 @@ export const confWeapons = [
           lvl : 9,
           bat : [1,4,8,9],
           img : require("../images/lasersaber.png"),
+        },
+        {
+          id : 17,
+          nom : "Slip",
+          lvl : 13,
+          bat : [8,11,12,15],
+          img : require("../images/slip.png"),
+        },
+        {
+          id : 18,
+          nom : "Elève",
+          lvl : 13,
+          bat : [16,17],
+          img : require("../images/student.png"),
         },
       ];
