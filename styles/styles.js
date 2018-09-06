@@ -60,7 +60,7 @@ export const styles = StyleSheet.create({
       shadowRadius: 5,
       shadowOpacity: 1.0,
       borderRadius: 10,
-      backgroundColor: 'white',
+      padding: 25,
       backfaceVisibility: 'hidden',
     },
     header: {
