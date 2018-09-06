@@ -2,7 +2,7 @@ export const confWeapons = [
         {
           id : 1,
           nom : "Pierre",
-          bat : [3,5,10],
+          bat : [3,5,10,12],
           lvl : 1,
           img : require("../images/pierre.png"),
         },

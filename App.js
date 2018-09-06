@@ -48,6 +48,22 @@ export default class App extends React.Component {
 
   }
 
+  addSkin = (idSkin, price) => {
+    let pskins = this.state.playerInfos.skins;
+    if(price <= this.state.playerInfos.money){
+      let pognon = (this.state.playerInfos.money - price);
+      let exp = this.state.playerInfos.xp;
+      newSkins = pskins.push(idSkin);
+      this.setState({
+        playerInfos : {
+          xp : exp,
+          money : pognon,
+          pskins : newSkins,
+        }
+      })
+      let test = AsyncStorage.setItem('playerInfos', JSON.stringify(this.state.playerInfos));
+    }
+  }
 
   getRandom = () => {
     let random = Math.floor(Math.random() * (this.state.weapons.length) );
