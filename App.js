@@ -56,7 +56,7 @@ export default class App extends React.Component {
         {
           id : 7,
           nom : "The ULTIMATE",
-          bat : [1,2,3,4,5,6,7],
+          bat : [1,2,3,4,5,7],
           lvl : 5,
           img : require("./images/ultimate.png"),
         },
@@ -131,7 +131,7 @@ export default class App extends React.Component {
                 this.setState({modalBatailleVisible: false});
               }
             )
-            
+
           }
         )
       }
