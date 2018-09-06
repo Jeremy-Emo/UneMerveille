@@ -1,6 +1,7 @@
 import React from 'react';
 import { AsyncStorage, StyleSheet, Text, View, ScrollView, Button, Animated, Modal, Image } from 'react-native';
 import Arme from "./components/Arme";
+import InfosPlayer from "./components/InfosPlayer";
 import {styles} from "./styles/styles";
 
 export default class App extends React.Component {
@@ -183,10 +184,7 @@ export default class App extends React.Component {
 
     return (
       <View style={styles.container}>
-        <View>
-        <Text>Niveau du joueur : {Math.trunc(this.state.playerInfos.xp / 10 + 1)}</Text>
-        <Text>Expérience avant niveau suivant : { 10 - (this.state.playerInfos.xp % 10) }</Text>
-        </View>
+        <InfosPlayer infos={this.state.playerInfos} />
         <ScrollView horizontal={true} style={styles.mesArmes}>
           {
            this.state.weapons.map(
