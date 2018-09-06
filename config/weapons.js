@@ -97,4 +97,12 @@ export const confWeapons = [
           bat : [7],
           img : require("../images/oreiller.png"),
         },
+        {
+          id : 15,
+          nom : "Poulet Musclé",
+          lvl : 8,
+          bat : [8,9],
+          img : require("../images/poulet_muscle.png"),
+          price : 100,
+        },
       ];
