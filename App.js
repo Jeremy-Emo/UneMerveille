@@ -14,7 +14,7 @@ export default class App extends React.Component {
         {
           id : 1,
           nom : "Pierre",
-          bat : [3,5],
+          bat : [3,5,10],
           lvl : 1,
           img : require("./images/pierre.png"),
         },
@@ -35,7 +35,7 @@ export default class App extends React.Component {
         {
           id : 4,
           nom : "Puit",
-          bat : [1,3,8],
+          bat : [1,3,8,10],
           lvl : 2,
           img : require("./images/puit.png"),
         },
@@ -57,7 +57,7 @@ export default class App extends React.Component {
           id : 7,
           nom : "The ULTIMATE",
           bat : [1,2,3,4,5,7,9],
-          lvl : 5,
+          lvl : 20,
           img : require("./images/ultimate.png"),
         },
         {
@@ -71,8 +71,22 @@ export default class App extends React.Component {
           id : 9,
           nom : "Corde",
           bat : [1,4,6],
-          lvl : 7,
+          lvl : 3,
           img : require("./images/corde.png"),
+        },
+        {
+          id : 10,
+          nom : "Bière",
+          bat : [7,8,11],
+          lvl : 6,
+          img : require("./images/biere.png"),
+        },
+        {
+          id : 11,
+          nom : "Arc-en-ciel",
+          bat : [6,7],
+          lvl : 7,
+          img : require("./images/rainbow.png"),
         },
       ],
       playerInfos : {
