@@ -62,6 +62,14 @@ export default class App extends React.Component {
     }
   }
 
+  storeData = async () => {
+    try {
+      await AsyncStorage.setItem('playerInfos', JSON.stringify(this.state.playerInfos));
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
   addSkin = (idSkin, price) => {
     let pskins = this.state.playerInfos.skins;
     if(price <= this.state.playerInfos.money){
@@ -79,7 +87,7 @@ export default class App extends React.Component {
           defaites : loses,
         }
       })
-      let test = AsyncStorage.setItem('playerInfos', JSON.stringify(this.state.playerInfos));
+      this.storeData();
     }
   }
 
@@ -125,7 +133,7 @@ export default class App extends React.Component {
                   },
                   message: "Victoire !",
                 });
-                let test = AsyncStorage.setItem('playerInfos', JSON.stringify(this.state.playerInfos));
+                this.storeData();
                 
               } else if(enemyWeapon.bat.indexOf(playerWeapon.id) != -1){
                 let exp = this.state.playerInfos.xp;
@@ -143,6 +151,7 @@ export default class App extends React.Component {
                   },
                   message: "Défaite !",
                 })
+                this.storeData();
               } else {
                 this.setState({
                   message: "Egalité...",
