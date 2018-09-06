@@ -11,7 +11,7 @@ export default class Header extends React.Component {
 
     return (
       <View style={styles.header}>
-        <Text style={styles.headerText}>ULTIMATE WONDERFUL JANKEN OF DEATH</Text>
+        <Text style={styles.headerText}>{this.props.title}</Text>
       </View>
     );
   }

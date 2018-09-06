@@ -4,6 +4,7 @@ import Arme from "./components/Arme";
 import InfosPlayer from "./components/InfosPlayer";
 import Header from "./components/Header";
 import Bataille from "./components/Bataille";
+import Magasin from "./components/Magasin";
 import {styles} from "./styles/styles";
 import {confWeapons} from "./config/weapons";
 
@@ -16,11 +17,12 @@ export default class App extends React.Component {
       playerInfos : {
         xp : 0,
         money : 0,
-        skins : [1,2,3,4,5,6,7,8,9,10,11,12,13,14],
+        skins : [],
         victoires : 0,
         defaites : 0,
       },
       modalBatailleVisible: false,
+      modalMagasinVisible: false,
       playerWeapon: {},
       enemyWeapon: {},
       positionValue: new Animated.Value(0),
@@ -58,24 +60,32 @@ export default class App extends React.Component {
     }
   }
 
-  addSkin = (idSkin, price) => {
+  storeData = async () => {
+    try {
+      await AsyncStorage.setItem('playerInfos', JSON.stringify(this.state.playerInfos));
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  addSkin = (skin) => {
     let pskins = this.state.playerInfos.skins;
-    if(price <= this.state.playerInfos.money){
-      let pognon = (this.state.playerInfos.money - price);
+    if(skin.price <= this.state.playerInfos.money){
+      let pognon = (this.state.playerInfos.money - skin.price);
       let exp = this.state.playerInfos.xp;
       let wins = this.state.playerInfos.victoires;
       let loses = this.state.playerInfos.defaites;
-      newSkins = pskins.push(idSkin);
+      pskins.push(skin.id);
       this.setState({
         playerInfos : {
           xp : exp,
           money : pognon,
-          pskins : newSkins,
+          skins : pskins,
           victoires : wins,
           defaites : loses,
         }
       })
-      let test = AsyncStorage.setItem('playerInfos', JSON.stringify(this.state.playerInfos));
+      this.storeData();
     }
   }
 
@@ -84,8 +94,18 @@ export default class App extends React.Component {
     return this.state.weapons[random];
   }
 
+  openMagasinModal = () => {
+    this.setState({
+      modalMagasinVisible: true,
+    })
+  }
+
   closeBatailleModal = () => {
     this.setState({modalBatailleVisible: false});
+  }
+
+  closeMagasinModal = () => {
+    this.setState({modalMagasinVisible: false});
   }
 
   checkVictory = (playerWeapon) => {
@@ -121,7 +141,7 @@ export default class App extends React.Component {
                   },
                   message: "Victoire !",
                 });
-                let test = AsyncStorage.setItem('playerInfos', JSON.stringify(this.state.playerInfos));
+                this.storeData();
 
               } else if(enemyWeapon.bat.indexOf(playerWeapon.id) != -1){
                 let exp = this.state.playerInfos.xp;
@@ -139,6 +159,7 @@ export default class App extends React.Component {
                   },
                   message: "Défaite !",
                 })
+                this.storeData();
               } else {
                 this.setState({
                   message: "Egalité...",
@@ -164,13 +185,14 @@ export default class App extends React.Component {
 
     return (
       <View style={styles.container}>
-        <Header/>
+        <Header title="ULTIMATE WONDERFUL JANKEN OF DEATH"/>
+        <Button onPress={() => this.openMagasinModal()} title="Magasin"/>
         <InfosPlayer infos={this.state.playerInfos} />
         <ScrollView horizontal={true} style={styles.mesArmes}>
           {
            this.state.weapons.map(
                (arme) => {
-                 if( (arme.lvl <= (this.state.playerInfos.xp / 10 + 1)) && (this.state.playerInfos.skins.indexOf(arme.id) != -1) ){
+                 if( (arme.lvl <= (this.state.playerInfos.xp / 10 + 1)) && (this.state.playerInfos.skins.indexOf(arme.id) != -1 || arme.price == null) ){
                    return (
                        <Arme weapon={arme} key={arme.id} onPressWeapon={this.checkVictory} />
                    )
@@ -180,7 +202,10 @@ export default class App extends React.Component {
           }
         </ScrollView>
 
+          <Magasin state={this.state} closeMagasinModal={() => this.closeMagasinModal()} addSkin={this.addSkin}/>
         <Bataille state={this.state} closeBatailleModal={() => this.closeBatailleModal()}/>
+
+
       </View>
     );
   }
