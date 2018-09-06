@@ -9,7 +9,7 @@ export const confWeapons = [
         {
           id : 2,
           nom : "Papier",
-          bat : [1,4,18],
+          bat : [1,2,4,18],
           lvl : 1,
           img : require("../images/papier.png"),
         },
@@ -51,7 +51,7 @@ export const confWeapons = [
         {
           id : 8,
           nom : "Spartiate",
-          bat : [1,2,3,5,13,14],
+          bat : [1,3,5,13,14],
           lvl : 6,
           img : require("../images/spartiate.png"),
         },
