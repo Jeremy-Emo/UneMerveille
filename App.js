@@ -105,51 +105,54 @@ export default class App extends React.Component {
   }
 
   checkVictory = (playerWeapon) => {
-    let enemyWeapon = this.getRandom();
 
-    this.setState({
-      modalBatailleVisible: true,
-      playerWeapon: playerWeapon,
-      enemyWeapon: enemyWeapon,
-    });
-    this.state.positionValue.setValue(0);
-    this.state.rotationValue.setValue(0);
-    this.state.opacityValue.setValue(0);
-    Animated.timing(this.state.positionValue, {toValue: 1, duration: 800}).start(
-      () => {
-        Animated.timing(this.state.rotationValue, {toValue: 180, duration: 800}).start(
-          () => {
-            if( playerWeapon.bat.indexOf(enemyWeapon.id) != -1 ){
-              console.log('gagné ! Vous : ' + playerWeapon.nom + ' ; Lui : ' + enemyWeapon.nom);
-              let exp = (this.state.playerInfos.xp + 1)
-              this.setState({
-                playerInfos : {
-                  xp : exp,
-                },
-                message: "Victoire !",
-              });
-              let test = AsyncStorage.setItem('playerInfos', JSON.stringify(this.state.playerInfos));
-            } else if(enemyWeapon.bat.indexOf(playerWeapon.id) != -1){
-              console.log('perdu ! Vous : ' + playerWeapon.nom + ' ; Lui : ' + enemyWeapon.nom);
-              this.setState({
-                message: "Défaite !",
-              })
-            } else {
-              console.log('egalité...  Vous : ' + playerWeapon.nom + ' ; Lui : ' + enemyWeapon.nom);
-              this.setState({
-                message: "Egalité...",
-              })
-            }
-            Animated.timing(this.state.opacityValue, {toValue: 1, duration: 1000}).start(
-              () => {
-                this.setState({modalBatailleVisible: false});
+    if(!this.state.modalBatailleVisible){
+      let enemyWeapon = this.getRandom();
+
+      this.setState({
+        modalBatailleVisible: true,
+        playerWeapon: playerWeapon,
+        enemyWeapon: enemyWeapon,
+      });
+      this.state.positionValue.setValue(0);
+      this.state.rotationValue.setValue(0);
+      this.state.opacityValue.setValue(0);
+      Animated.timing(this.state.positionValue, {toValue: 1, duration: 800}).start(
+        () => {
+          Animated.timing(this.state.rotationValue, {toValue: 180, duration: 800}).start(
+            () => {
+              if( playerWeapon.bat.indexOf(enemyWeapon.id) != -1 ){
+                console.log('gagné ! Vous : ' + playerWeapon.nom + ' ; Lui : ' + enemyWeapon.nom);
+                let exp = (this.state.playerInfos.xp + 1)
+                this.setState({
+                  playerInfos : {
+                    xp : exp,
+                  },
+                  message: "Victoire !",
+                });
+                let test = AsyncStorage.setItem('playerInfos', JSON.stringify(this.state.playerInfos));
+              } else if(enemyWeapon.bat.indexOf(playerWeapon.id) != -1){
+                console.log('perdu ! Vous : ' + playerWeapon.nom + ' ; Lui : ' + enemyWeapon.nom);
+                this.setState({
+                  message: "Défaite !",
+                })
+              } else {
+                console.log('egalité...  Vous : ' + playerWeapon.nom + ' ; Lui : ' + enemyWeapon.nom);
+                this.setState({
+                  message: "Egalité...",
+                })
               }
-            )
+              Animated.timing(this.state.opacityValue, {toValue: 1, duration: 1000}).start(
+                () => {
+                  this.setState({modalBatailleVisible: false});
+                }
+              )
 
-          }
-        )
-      }
-    );
+            }
+          )
+        }
+      );
+    }
   }
 
   render() {
