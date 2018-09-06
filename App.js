@@ -4,6 +4,7 @@ import Arme from "./components/Arme";
 import InfosPlayer from "./components/InfosPlayer";
 import Header from "./components/Header";
 import Bataille from "./components/Bataille";
+import Magasin from "./components/Magasin";
 import {styles} from "./styles/styles";
 import {confWeapons} from "./config/weapons";
 
@@ -21,6 +22,7 @@ export default class App extends React.Component {
         defaites : 0,
       },
       modalBatailleVisible: false,
+      modalMagasinVisible: false,
       playerWeapon: {},
       enemyWeapon: {},
       positionValue: new Animated.Value(0),
@@ -68,17 +70,17 @@ export default class App extends React.Component {
 
   addSkin = (skin) => {
     let pskins = this.state.playerInfos.skins;
-    if(price <= this.state.playerInfos.money){
+    if(skin.price <= this.state.playerInfos.money){
       let pognon = (this.state.playerInfos.money - skin.price);
       let exp = this.state.playerInfos.xp;
       let wins = this.state.playerInfos.victoires;
       let loses = this.state.playerInfos.defaites;
-      newSkins = pskins.push(skin.id);
+      pskins.push(skin.id);
       this.setState({
         playerInfos : {
           xp : exp,
           money : pognon,
-          pskins : newSkins,
+          skins : pskins,
           victoires : wins,
           defaites : loses,
         }
@@ -92,8 +94,18 @@ export default class App extends React.Component {
     return this.state.weapons[random];
   }
 
+  openMagasinModal = () => {
+    this.setState({
+      modalMagasinVisible: true,
+    })
+  }
+
   closeBatailleModal = () => {
     this.setState({modalBatailleVisible: false});
+  }
+
+  closeMagasinModal = () => {
+    this.setState({modalMagasinVisible: false});
   }
 
   checkVictory = (playerWeapon) => {
@@ -173,7 +185,8 @@ export default class App extends React.Component {
 
     return (
       <View style={styles.container}>
-        <Header/>
+        <Header title="ULTIMATE WONDERFUL JANKEN OF DEATH"/>
+        <Button onPress={() => this.openMagasinModal()} title="Magasin"/>
         <InfosPlayer infos={this.state.playerInfos} />
         <ScrollView horizontal={true} style={styles.mesArmes}>
           {
@@ -189,7 +202,10 @@ export default class App extends React.Component {
           }
         </ScrollView>
 
+          <Magasin state={this.state} closeMagasinModal={() => this.closeMagasinModal()} addSkin={this.addSkin}/>
         <Bataille state={this.state} closeBatailleModal={() => this.closeBatailleModal()}/>
+
+        
       </View>
     );
   }

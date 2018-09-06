@@ -68,7 +68,7 @@ export default class Bataille extends React.Component {
       }
 
     return (
-        <Modal visible={this.props.state.modalBatailleVisible} transparent={false} onRequestClose={() => {}} ref={this.batailleModale}>
+        <Modal visible={this.props.state.modalBatailleVisible} transparent={false} onRequestClose={() => {}}>
           <View style={styles.batailleModal}>
             <Animated.Text style={[{opacity: this.props.state.opacityValue}, styles.batailleModalText]}>{this.props.state.message}</Animated.Text>
             <Animated.View style={[card1.positionStyle, styles.cardContainer]}>
