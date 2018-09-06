@@ -30,7 +30,7 @@ export const confWeapons = [
         {
           id : 5,
           nom : "Bazooka",
-          bat : [2,3,4,14],
+          bat : [2,3,4,14,18],
           lvl : 3,
           img : require("../images/bazooka.png"),
         },
@@ -94,7 +94,7 @@ export const confWeapons = [
           id : 14,
           nom : "Oreiller",
           lvl : 11,
-          bat : [7],
+          bat : [7,19],
           img : require("../images/oreiller.png"),
         },
         {
@@ -116,7 +116,7 @@ export const confWeapons = [
           id : 17,
           nom : "Slip",
           lvl : 13,
-          bat : [8,11,12,15],
+          bat : [8,11,12,15,19],
           img : require("../images/slip.png"),
         },
         {
@@ -125,5 +125,12 @@ export const confWeapons = [
           lvl : 13,
           bat : [16,17],
           img : require("../images/student.png"),
+        },
+        {
+          id : 19,
+          nom : "Pin-Up",
+          lvl : 14,
+          bat : [6,7,8,18],
+          img : require("../images/pinup.png"),
         },
       ];
