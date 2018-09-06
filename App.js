@@ -15,7 +15,7 @@ export default class App extends React.Component {
       playerInfos : {
         xp : 0,
         money : 0,
-        skins : [],
+        skins : [1,2,3,4,5,6,7,8,9,10,11,12,13,14],
       },
       modalBatailleVisible: false,
       positionValue: new Animated.Value(0),
@@ -29,7 +29,19 @@ export default class App extends React.Component {
 
     AsyncStorage.getItem('playerInfos').then(data => {
       if (data !== null) {
-        this.setState({playerInfos : JSON.parse(data)});
+        let jsonData = JSON.parse(data);
+        if(jsonData.skins){
+          this.setState({playerInfos : jsonData});
+        } else {
+          let pskins = this.state.playerInfos.skins;
+          this.setState({
+            playerInfos : {
+              xp : jsonData.xp,
+              money : jsonData.money,
+              skins : pskins,
+            }
+          })
+        }
       }
       this.setState({gotData : true});
     })
@@ -60,12 +72,14 @@ export default class App extends React.Component {
           Animated.timing(this.state.rotationValue, {toValue: 180, duration: 800}).start(
             () => {
               if( playerWeapon.bat.indexOf(enemyWeapon.id) != -1 ){
-                let exp = (this.state.playerInfos.xp + 1)
-                let pognon = (this.state.playerInfos.money + 5)
+                let exp = (this.state.playerInfos.xp + 1);
+                let pognon = (this.state.playerInfos.money + 5);
+                let pskins = this.state.playerInfos.skins;
                 this.setState({
                   playerInfos : {
                     xp : exp,
                     money : pognon,
+                    skins : pskins,
                   },
                   message: "Victoire !",
                 });
@@ -160,7 +174,7 @@ export default class App extends React.Component {
           {
            this.state.weapons.map(
                (arme) => {
-                 if(arme.lvl <= (this.state.playerInfos.xp / 10 + 1)){
+                 if( (arme.lvl <= (this.state.playerInfos.xp / 10 + 1)) && (this.state.playerInfos.skins.indexOf(arme.id) != -1) ){
                    return (
                        <Arme weapon={arme} key={arme.id} onPressWeapon={this.checkVictory} />
                    )
