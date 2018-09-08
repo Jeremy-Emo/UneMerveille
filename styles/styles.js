@@ -3,7 +3,6 @@ import { StyleSheet} from 'react-native';
 export const styles = StyleSheet.create({
     container: {
       flex: 1,
-      backgroundColor: '#fff',
       alignItems: 'center',
       justifyContent: 'center',
       paddingTop: 20,
@@ -19,6 +18,18 @@ export const styles = StyleSheet.create({
       marginLeft : 10,
       marginRight: 10,
       padding : 10,
+      backgroundColor: '#fff',
+    },
+    infosBox: {
+      marginTop: 20,
+      alignItems: 'center',
+      backgroundColor: 'rgba(0,0,0,.3)',
+      width : '100%',
+    },
+    textInfos: {
+      fontSize: 18,
+      fontWeight: 'bold',
+      color : 'white',
     },
     mesArmes: {
       flex: 1,
