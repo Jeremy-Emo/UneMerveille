@@ -1,5 +1,5 @@
 import React from 'react';
-import { AsyncStorage, StyleSheet, Text, View, ScrollView, Button, Animated, Modal, Image } from 'react-native';
+import { AsyncStorage, StyleSheet, Text, View, ScrollView, Button, Animated, Modal, Image, ImageBackground } from 'react-native';
 import Arme from "./components/Arme";
 import InfosPlayer from "./components/InfosPlayer";
 import Header from "./components/Header";
@@ -184,9 +184,13 @@ export default class App extends React.Component {
   render() {
 
     return (
+      <ImageBackground
+        source={require("./images/MOI.png")}
+        style={{width: '100%', height: '100%', flex : 1}}
+      >
       <View style={styles.container}>
         <Header title="ULTIMATE WONDERFUL JANKEN OF DEATH"/>
-        <Button onPress={() => this.openMagasinModal()} title="Magasin"/>
+        <Button onPress={() => this.openMagasinModal()} title="Magasin" color="red"/>
         <InfosPlayer infos={this.state.playerInfos} />
         <ScrollView horizontal={true} style={styles.mesArmes}>
           {
@@ -202,11 +206,12 @@ export default class App extends React.Component {
           }
         </ScrollView>
 
-          <Magasin state={this.state} closeMagasinModal={() => this.closeMagasinModal()} addSkin={this.addSkin}/>
+        <Magasin state={this.state} closeMagasinModal={() => this.closeMagasinModal()} addSkin={this.addSkin}/>
         <Bataille state={this.state} closeBatailleModal={() => this.closeBatailleModal()}/>
 
 
       </View>
+      </ImageBackground>
     );
   }
 }
