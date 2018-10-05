@@ -2,7 +2,7 @@ export const confTypes = [
         {
           id : 1,
           nom : "Pierre",
-          bat : [3,5,10,12,18],
+          bat : [3,5,10,12,15,18],
         },
         {
           id : 2,
@@ -12,7 +12,7 @@ export const confTypes = [
         {
           id : 3,
           nom : "Ciseaux",
-          bat : [2,6,9,14,17,18],
+          bat : [2,6,9,14,15,17,18],
         },
         {
           id : 4,
@@ -70,9 +70,14 @@ export const confTypes = [
           bat : [7,18,19],
         },
         {
+          id : 15,
+          nom : "Platypus",
+          bat : [2,14,17,18],
+        },
+        {
           id : 16,
           nom : "Sabre Laser",
-          bat : [1,4,8,9,26,29],
+          bat : [1,4,8,9,15,26,29],
         },
         {
           id : 17,
@@ -92,7 +97,7 @@ export const confTypes = [
         {
           id : 23,
           nom : "Nugget Cosmique",
-          bat : [12,17],
+          bat : [12,15,17],
         },
         {
           id : 24,

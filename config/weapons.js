@@ -209,4 +209,12 @@ export const confWeapons = [
           lvl : 25,
           img : require("../images/chouriken.png"),
         },
+        {
+          id : 27,
+          nom : "Angry Unicorn",
+          type : 6,
+          lvl : 6,
+          img : require("../images/unicorn.png"),
+          price : 750,
+        },
       ];
