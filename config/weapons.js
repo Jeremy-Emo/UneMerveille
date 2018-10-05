@@ -42,13 +42,6 @@ export const confWeapons = [
           img : require("../images/licorne.png"),
         },
         {
-          id : 7,
-          nom : "The ULTIMATE",
-          type : 7,
-          lvl : 20,
-          img : require("../images/ultimate.png"),
-        },
-        {
           id : 8,
           nom : "Spartiate",
           type : 8,
@@ -216,5 +209,19 @@ export const confWeapons = [
           lvl : 6,
           img : require("../images/unicorn.png"),
           price : 750,
+        },
+        {
+          id : 28,
+          nom : "Ornithorynque",
+          type : 15,
+          lvl : 27,
+          img : require("../images/platypus.png"),
+        },
+        {
+          id : 7,
+          nom : "The ULTIMATE",
+          type : 7,
+          lvl : 50,
+          img : require("../images/ultimate.png"),
         },
       ];
