@@ -168,7 +168,7 @@ export const confWeapons = [
           id : 24,
           nom : "Rainbow UniCat",
           bat : [5,6,8,10,22,23,27],
-          lvl : 1,
+          lvl : 10,
           img : require("../images/unicat.png"),
           price : 3000,
         },
