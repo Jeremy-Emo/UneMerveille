@@ -3,7 +3,7 @@
     "sdkVersion": "27.0.0",
     "name": "Ultimate Wonderful Janken Of Death",
     "icon": "./images/icon.png",
-    "version": "1.5.3",
+    "version": "1.5.4",
     "slug": "slug-of-death",
     "android": {
       "package": "com.nous.ultimatewonderfuljankenofdeath"

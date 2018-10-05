@@ -91,6 +91,9 @@ export default class App extends React.Component {
 
   getRandom = () => {
     let random = Math.floor(Math.random() * (this.state.weapons.length) );
+    if(this.state.weapons[random].lvl > this.state.playerInfos.xp / 10 + 1){
+      return this.getRandom();
+    }
     return this.state.weapons[random];
   }
 
