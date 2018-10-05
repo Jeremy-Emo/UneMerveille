@@ -7,6 +7,7 @@ import Bataille from "./components/Bataille";
 import Magasin from "./components/Magasin";
 import {styles} from "./styles/styles";
 import {confWeapons} from "./config/weapons";
+import {confTypes} from "./config/types";
 
 export default class App extends React.Component {
 
@@ -14,6 +15,7 @@ export default class App extends React.Component {
     super();
     this.state = {
       weapons : confWeapons,
+      types : confTypes,
       playerInfos : {
         xp : 0,
         money : 0,
@@ -121,6 +123,8 @@ export default class App extends React.Component {
         playerWeapon: playerWeapon,
         enemyWeapon: enemyWeapon,
       });
+      let playerType = this.state.types.find(type => type.id == playerWeapon.type);
+      let enemyType = this.state.types.find(type => type.id == enemyWeapon.type);
       this.state.positionValue.setValue(0);
       this.state.rotationValue.setValue(0);
       this.state.opacityValue.setValue(0);
@@ -128,7 +132,7 @@ export default class App extends React.Component {
         () => {
           Animated.timing(this.state.rotationValue, {toValue: 180, duration: 800}).start(
             () => {
-              if( playerWeapon.bat.indexOf(enemyWeapon.id) != -1 ){
+              if( playerType.bat.indexOf(enemyType.id) != -1 ){
                 let exp = (this.state.playerInfos.xp + 1);
                 let pognon = (this.state.playerInfos.money + 5);
                 let wins = this.state.playerInfos.victoires + 1;
@@ -146,7 +150,7 @@ export default class App extends React.Component {
                 });
                 this.storeData();
 
-              } else if(enemyWeapon.bat.indexOf(playerWeapon.id) != -1){
+              } else if(enemyType.bat.indexOf(playerType.id) != -1){
                 let exp = this.state.playerInfos.xp;
                 let pognon = this.state.playerInfos.money;
                 let wins = this.state.playerInfos.victoires;
